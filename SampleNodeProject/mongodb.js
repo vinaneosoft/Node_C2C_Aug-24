@@ -5,6 +5,13 @@ const employee={
     emp_salary:89000
 }
 
+const newEmp={
+    _id:334,
+    emp_name:"poonam pawar",
+    emp_salary:90000,
+    emp_email:"poonam@gmail.com"
+}
+
  mongoose.connect("mongodb+srv://root:root@cluster0.jkcmoaj.mongodb.net/nodetraining?retryWrites=true&w=majority&appName=Cluster0")
 .then((res)=>{
     console.log("connected......");
@@ -12,6 +19,7 @@ const employee={
     getEmployeeById(123);
     deleteEmployeeById(111);
     updateEmployee(123,employee);
+    addEmployee(newEmp);
     }
 )
 .catch(err=>console.log(err))
@@ -52,4 +60,11 @@ async function updateEmployee(empId, employee){
      const data= await EmployeeModel.updateOne(filter,updates)
      console.log(data);
      console.log("_____________");
+}
+
+async function addEmployee(employee){
+    const EmployeeDoc=new EmployeeModel(employee);
+    const res=await EmployeeDoc.save();
+    console.log("inserted...", res);
+    console.log("_____________");
 }
