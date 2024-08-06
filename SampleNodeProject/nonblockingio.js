@@ -11,3 +11,17 @@ catch(err){
     console.log(err);
 }
 console.log("further operation.......");
+
+
+try{
+    fs.writeFile("./Files/Mangeshkar.txt", "new contents", (error)=>{
+        if(error)
+                throw new Error("error in writing a file");
+        console.log("write operation done..."); 
+    })}
+    catch(err){
+        console.log("hi", err);
+    }
+    console.log("further operation.......");
+    
+    
