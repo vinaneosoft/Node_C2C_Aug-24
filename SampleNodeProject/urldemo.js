@@ -20,6 +20,7 @@ const myURL =
   console.log(urlObject.protocol);
 
 
+/* how to costruct a url  */
 
 const origin="https://en.wikipedia.org"
 const pathname = '/wiki/Sachin_Tendulkar';
@@ -28,9 +29,16 @@ const newURL=new URL(`${origin}${pathname}${hash}`)
 console.log(newURL);
 console.log(newURL.href);
 
+/* how to costruct url from partical url */
 
 const partialURL = new URL('https://example.org');
+partialURL.port="8080";
 partialURL.pathname = '/a/b/c';
 partialURL.search = '?d=e';
 partialURL.hash = '#hashvalue'; 
 console.log(partialURL.href);
+
+
+
+const url2=new URL(`${pathname}${hash}`, origin)
+console.log(url2.href);
