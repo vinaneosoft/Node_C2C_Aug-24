@@ -1,18 +1,17 @@
 const mongoose=require("mongoose");
 
+const employee={
+    emp_name:"kiran patil",
+    emp_salary:89000
+}
+
  mongoose.connect("mongodb+srv://root:root@cluster0.jkcmoaj.mongodb.net/nodetraining?retryWrites=true&w=majority&appName=Cluster0")
 .then((res)=>{
     console.log("connected......");
     getAllEmployees();
     getEmployeeById(123);
     deleteEmployeeById(111);
-    const employee={
-        empId:123,
-        empName:"kiran patil",
-        empEmail:"kiran@gmail.com",
-        empSalary : 74000
-    }
-    updateEmployee(employee);
+    updateEmployee(123,employee);
     }
 )
 .catch(err=>console.log(err))
@@ -46,14 +45,11 @@ async function deleteEmployeeById(empId){
      console.log("_____________");
 }
 
-async function updateEmployee(employee){
+async function updateEmployee(empId, employee){
     // find all records from collection
-     const data= await EmployeeModel.updateOne({_id:employee.empId}, 
-        {
-            emp_name:employee.empName, 
-            emp_email:employee.empEmail,
-            emp_salary : employee.empSalary
-        } );
+    const filter={_id:empId};
+    const updates=employee;
+     const data= await EmployeeModel.updateOne(filter,updates)
      console.log(data);
      console.log("_____________");
 }
