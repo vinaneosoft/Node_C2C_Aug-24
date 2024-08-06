@@ -1,7 +1,26 @@
 const fs=require("node:fs");
 
-const contents=fs.readFileSync("./Files/Tendulkar.txt");
+const filepath="./Files/Tendulkar.txt";
+
+const contents=fs.readFileSync(filepath);
 console.log(contents);
 console.log(contents.toString());
 console.log("further operation....");
 
+fs.writeFileSync(filepath, "Tendulkar has received several awards from the government of India");
+console.log("write operation completed....");
+
+function readData(fp){
+    const contents=fs.readFileSync(fp);
+    return contents.toString();
+}
+
+function writeData(contents){
+    fs.writeFileSync(filepath, contents);
+}
+
+writeData("This is new data to go in file");
+console.log("write operation completed....");
+const filepath2="./Files/Tendulkar.txt";
+const cont=readData(filepath2);
+console.log(cont);
