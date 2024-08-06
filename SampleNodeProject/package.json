@@ -1,0 +1,22 @@
+{
+  "name": "samplenodeproject",
+  "version": "1.0.0",
+  "description": "this is the node project for training purpose",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "node",
+    "npm",
+    "path",
+    "file",
+    "mongoose",
+    "mysql"
+  ],
+  "author": "vina patil",
+  "license": "ISC",
+  "dependencies": {
+    "mongoose": "^8.5.2"
+  }
+}
