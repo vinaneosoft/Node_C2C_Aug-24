@@ -1,1 +1,0 @@
-const ABC=require("./mymodule")
