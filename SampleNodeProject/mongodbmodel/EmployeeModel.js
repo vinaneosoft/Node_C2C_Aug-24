@@ -1,3 +1,4 @@
+const mongoose=require("mongoose");
 const empSchema=new mongoose.Schema({
     _id:Number,
     emp_name :{ type: String, default:"neosoft" },
