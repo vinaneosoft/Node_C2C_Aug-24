@@ -1,5 +1,5 @@
 const api= require("./api/EmployeesAPI");
-const {getAllEmployees}=api;
+const {getAllEmployees, getEmployeeById, deleteEmployeeById}=api;
 
 const express=require("express");
 const app=express();
@@ -13,7 +13,17 @@ app.get("/", function(request, response){
     response.send("WELCOME TO FIRST NODE PROJECT WITH EXPRESS...........");
 });
 
-app.get("/employees/getall", function(request, response){
-    const data=getAllEmployees();
+app.get("/employees/getall", async function(request, response){
+    const data=await getAllEmployees();
+    response.send(data);
+});
+
+app.get("/employees/get/:empId", async function(request, response){
+    const data=await getEmployeeById(request.params.empId);
+    response.send(data);
+});
+
+app.get("/employees/delete/:empId", async function(request, response){
+    const data=await deleteEmployeeById(request.params.empId);
     response.send(data);
 });
