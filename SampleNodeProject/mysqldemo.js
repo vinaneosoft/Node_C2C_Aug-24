@@ -1,5 +1,19 @@
 var mysql = require('mysql');
 
+/* this object is for updation */
+const employee={
+    empName:"hari pawar",
+    empSalary:90000,
+    empEmail:"pawar@gmail.com"
+}
+
+/* this object is for creating new employee */
+const newEmp={
+    empId:334,
+    empName:"poonam pawar",
+    empSalary:90000,
+    empEmail:"poonam@gmail.com"
+}
 var connection = mysql.createConnection({
     host     : '127.0.0.1',
     user     : 'root',
@@ -8,6 +22,55 @@ var connection = mysql.createConnection({
   });
 
 connection.connect((err, ...args)=>{
-    console.log(err);
-    console.log(args);
+   if(err==null){
+    console.log("connected...");
+    getAllEmployees();
+   // getEmployeeById(123);
+  //  deleteEmployeeById(111);
+  //  updateEmployee(123,employee);
+  //  addEmployee(newEmp);
+   }
+   else
+    console.log(errr);
 })
+
+/* use ur table  */
+function getAllEmployees(){
+    // find all records from collection
+    connection.query('SELECT * from employees', function (error, results, fields) {
+        console.log(error);
+        console.log(results);
+        console.log(fields);
+      });  
+     console.log("_____________"); 
+}
+
+async function getEmployeeById(empId){
+    // find all records from collection
+     const data= await EmployeeModel.findById(empId).exec(); // _id
+     console.log(data);
+     console.log("_____________");
+}
+
+async function deleteEmployeeById(empId){
+    // find all records from collection
+     const data= await EmployeeModel.deleteOne({_id:empId});
+     console.log(data);
+     console.log("_____________");
+}
+
+async function updateEmployee(empId, employee){
+    // find all records from collection
+    const filter={_id:empId};
+    const updates=employee;
+     const data= await EmployeeModel.updateOne(filter,updates)
+     console.log(data);
+     console.log("_____________");
+}
+
+async function addEmployee(employee){
+    const EmployeeDoc=new EmployeeModel(employee);
+    const res=await EmployeeDoc.save();
+    console.log("inserted...", res);
+    console.log("_____________");
+}
