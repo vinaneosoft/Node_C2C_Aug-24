@@ -20,3 +20,6 @@ async function addEmployee(employee){
 }
 
 module.exports={getAllEmployees,getEmployeeById, deleteEmployeeById,updateEmployee, addEmployee}
+
+// module contains single file 
+// EmployeesAPI. js ==> EmployeesAPI

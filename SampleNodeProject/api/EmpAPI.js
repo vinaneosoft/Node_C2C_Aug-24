@@ -1,4 +1,4 @@
-const connection=require("../config/mysqldb");
+const connection=require("../config/mysqldb");  // require custom module
 async function getAllEmployees(){
     // find all records from collection
     const [result]=await connection.query('SELECT * from employees');
