@@ -14,16 +14,23 @@ const newEmp={
     empSalary:90000,
     empEmail:"poonam@gmail.com"
 }
-var connection = await mysql.createConnection({
-    host     : '127.0.0.1',
-    user     : 'root',
-    database : 'nodetraining'  // use sql mini project database here
-  });
 
-connection.connect().then((success)=>{
-    console.log("connected....");
-    console.log(success);
-}).catch((err)=>console.log(err));
+async function makeConnection(){
+    var connection = await mysql.createConnection({
+        host     : '127.0.0.1',
+        user     : 'root',
+        database : 'nodetraining'  // use sql mini project database here
+      }); 
+
+    connection.connect().then((success)=>{
+        console.log("connected....");
+        console.log(success);
+    }).catch((err)=>console.log(err));
+    
+    return connection;
+}
+var connection =  makeConnection();
+
 
 /* use ur table  */
 function getAllEmployees(){
