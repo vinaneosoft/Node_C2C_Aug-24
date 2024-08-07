@@ -26,7 +26,10 @@ async function makeConnection(){
     connection.connect().then((success)=>{
         console.log("connected....");
         //getAllEmployees();
-        getEmployeeById(122); // pass id available in table
+       // getEmployeeById(122); // pass id available in table
+        // deleteEmployeeById(111)
+        //updateEmployee(122, employee) // id : whose data to update, updations
+        addEmployee(newEmp);
     }).catch((err)=>console.log(err));
 }
 makeConnection();
@@ -46,23 +49,24 @@ async function getEmployeeById(empId){
     console.log("_____________"); 
 }
 async function deleteEmployeeById(empId){
-    const [result]=await connection.query(`delete from employees where emp_id=${empId}`);
-    console.log(result);
+    const response=await connection.query(`delete from employees where emp_id=${empId}`);
+    console.log(response);
     console.log("_____________"); 
 }
 async function updateEmployee(empId, employee){
-    const filter={_id:empId};
-    const updates=employee;
-     const data= await EmployeeModel.updateOne(filter,updates)
-     console.log(data);
-     console.log("_____________");
+    const response=await connection.query(`update employees 
+                                    set emp_name=${employee.empName},
+                                        emp_email=${employee.empEmail},
+                                        emp_salary=${employee.empSalary} where emp_id=${empId}`);
+    console.log(response);
+    console.log("_____________"); 
 }
 
 async function addEmployee(employee){
-    const EmployeeDoc=new EmployeeModel(employee);
-    const res=await EmployeeDoc.save();
-    console.log("inserted...", res);
-    console.log("_____________");
+    const response=await connection.query(`insert into employees
+         values(${employee.empId}, ${employee.empName}, ${employee.empSalary}, ${employee.empEmail})`);
+    console.log(response);
+    console.log("_____________"); 
 }
 
 
