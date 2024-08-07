@@ -1,4 +1,4 @@
-var mysql = require('mysql');
+var mysql = require('mysql2/promise');
 
 /* this object is for updation */
 const employee={
@@ -14,26 +14,16 @@ const newEmp={
     empSalary:90000,
     empEmail:"poonam@gmail.com"
 }
-var connection = mysql.createConnection({
+var connection = await mysql.createConnection({
     host     : '127.0.0.1',
     user     : 'root',
-    password : 'root',
     database : 'nodetraining'  // use sql mini project database here
   });
 
-connection.connect((err, ...args)=>{
-   if(err==null){
-    console.log("connected...");
-    getAllEmployees();
-    getAllEmployees2();
-   // getEmployeeById(123);
-  //  deleteEmployeeById(111);
-  //  updateEmployee(123,employee);
-  //  addEmployee(newEmp);
-   }
-   else
-    console.log(errr);
-})
+connection.connect().then((success)=>{
+    console.log("connected....");
+    console.log(success);
+}).catch((err)=>console.log(err));
 
 /* use ur table  */
 function getAllEmployees(){
