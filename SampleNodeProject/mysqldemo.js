@@ -25,6 +25,7 @@ connection.connect((err, ...args)=>{
    if(err==null){
     console.log("connected...");
     getAllEmployees();
+    getAllEmployees2();
    // getEmployeeById(123);
   //  deleteEmployeeById(111);
   //  updateEmployee(123,employee);
@@ -37,10 +38,9 @@ connection.connect((err, ...args)=>{
 /* use ur table  */
 function getAllEmployees(){
     // find all records from collection
-    connection.query('SELECT * from employees', function (error, results, fields) {
+    connection.query('SELECT * from employees', function (error, results) {
         console.log(error);
         console.log(results);
-        console.log(fields);
       });  
      console.log("_____________"); 
 }
@@ -74,3 +74,15 @@ async function addEmployee(employee){
     console.log("inserted...", res);
     console.log("_____________");
 }
+
+async function getAllEmployees2(){
+    const result = await new Promise((resolve, reject)=>{
+        connection.query('SELECT * from employees',  (error, results)=>{
+            if(error)
+                return reject(error);
+            return resolve(results);
+        });
+    });
+    console.log(result);
+}
+
