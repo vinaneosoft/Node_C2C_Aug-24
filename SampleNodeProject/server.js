@@ -1,6 +1,5 @@
 const api= require("./api/EmployeesAPI");
 const {getAllEmployees, getEmployeeById, deleteEmployeeById,addEmployee, updateEmployee}=api;
-
 const bodyParser=require("body-parser");
 
 const express=require("express");
