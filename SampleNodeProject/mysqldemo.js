@@ -15,8 +15,9 @@ const newEmp={
     empEmail:"poonam@gmail.com"
 }
 
+var connection ;
 async function makeConnection(){
-    var connection = await mysql.createConnection({
+     connection = await mysql.createConnection({
         host     : '127.0.0.1',
         user     : 'root',
         database : 'nodetraining'  // use sql mini project database here
@@ -24,21 +25,17 @@ async function makeConnection(){
 
     connection.connect().then((success)=>{
         console.log("connected....");
-        console.log(success);
+        getAllEmployees();
     }).catch((err)=>console.log(err));
-    
-    return connection;
 }
-var connection =  makeConnection();
+makeConnection();
 
 
 /* use ur table  */
-function getAllEmployees(){
+async function getAllEmployees(){
     // find all records from collection
-    connection.query('SELECT * from employees', function (error, results) {
-        console.log(error);
-        console.log(results);
-      });  
+    const response=await connection.query('SELECT * from employees');
+    console.log(response);
      console.log("_____________"); 
 }
 
@@ -72,14 +69,4 @@ async function addEmployee(employee){
     console.log("_____________");
 }
 
-async function getAllEmployees2(){
-    const result = await new Promise((resolve, reject)=>{
-        connection.query('SELECT * from employees',  (error, results)=>{
-            if(error)
-                return reject(error);
-            return resolve(results);
-        });
-    });
-    console.log(result);
-}
 
