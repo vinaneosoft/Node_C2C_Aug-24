@@ -25,36 +25,32 @@ async function makeConnection(){
 
     connection.connect().then((success)=>{
         console.log("connected....");
-        getAllEmployees();
+        //getAllEmployees();
+        getEmployeeById(122); // pass id available in table
     }).catch((err)=>console.log(err));
 }
 makeConnection();
 
-
 /* use ur table  */
 async function getAllEmployees(){
     // find all records from collection
-    const response=await connection.query('SELECT * from employees');
-    console.log(response);
-     console.log("_____________"); 
+    const [result]=await connection.query('SELECT * from employees');
+    console.log(result);
+    console.log("_____________"); 
 }
 
+/* use ur table  and primary key column of ur table*/
 async function getEmployeeById(empId){
-    // find all records from collection
-     const data= await EmployeeModel.findById(empId).exec(); // _id
-     console.log(data);
-     console.log("_____________");
+    const [result]=await connection.query(`SELECT * from employees where emp_id=${empId}`);
+    console.log(result);
+    console.log("_____________"); 
 }
-
 async function deleteEmployeeById(empId){
-    // find all records from collection
-     const data= await EmployeeModel.deleteOne({_id:empId});
-     console.log(data);
-     console.log("_____________");
+    const [result]=await connection.query(`delete from employees where emp_id=${empId}`);
+    console.log(result);
+    console.log("_____________"); 
 }
-
 async function updateEmployee(empId, employee){
-    // find all records from collection
     const filter={_id:empId};
     const updates=employee;
      const data= await EmployeeModel.updateOne(filter,updates)

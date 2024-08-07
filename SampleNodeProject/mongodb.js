@@ -40,21 +40,21 @@ async function getAllEmployees(){
      
 }
 async function getEmployeeById(empId){
-    // find all records from collection
+  
      const data= await EmployeeModel.findById(empId).exec(); // _id
      console.log(data);
      console.log("_____________");
 }
 
 async function deleteEmployeeById(empId){
-    // find all records from collection
+  
      const data= await EmployeeModel.deleteOne({_id:empId});
      console.log(data);
      console.log("_____________");
 }
 
 async function updateEmployee(empId, employee){
-    // find all records from collection
+  
     const filter={_id:empId};
     const updates=employee;
      const data= await EmployeeModel.updateOne(filter,updates)
