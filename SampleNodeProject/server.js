@@ -1,5 +1,5 @@
 const api= require("./api/EmployeesAPI");
-const {getAllEmployees, getEmployeeById, deleteEmployeeById,addEmployee}=api;
+const {getAllEmployees, getEmployeeById, deleteEmployeeById,addEmployee, updateEmployee}=api;
 
 const bodyParser=require("body-parser");
 
@@ -31,8 +31,18 @@ app.get("/employees/delete/:empId", async function(request, response){
 });
 
 const parser=bodyParser.urlencoded({extended:true})
+
 app.post("/employees/add", parser, async function(request, response){
     console.log(request.body);
     const data=await addEmployee(request.body);
+    response.send(data);
+});
+
+app.post("/employees/update", parser, async function(request, response){
+    console.log(request.body); 
+    const {_id, ...employee}=request.body;
+    console.log(_id);
+    console.log(employee);
+    const data=await updateEmployee(_id ,employee);
     response.send(data);
 });
