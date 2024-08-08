@@ -1,26 +1,35 @@
-const fs=require("node:fs");
+const { log } = require("node:console");
+const fs=require("node:fs/promises");
 
 const file="../Files/employees.json";
 
-try{
-fs.readFile(file, (error, data)=>{
-    if(error)
-            throw new Error("error in reading a file");
-    // console.log(data.toString());  
-    const jsondata=JSON.parse(data);
- //   console.log(jsondata);
-    const array= jsondata.employeerecords;
-    console.log(array);
-    test(array);
-})}
-catch(err){
-    console.log(err);
+
+async function readJSONData(){
+        const jsondata=await fs.readFile(file);
+        //console.log(jsondata);
+        const array=JSON.parse(jsondata).employeerecords;
+       // console.log(array);
+        return array;
 }
-console.log("further operation.......");
 
 
 function test(array){
-    const emps=array.filter(emp=>emp.salary==45000)
-    console.log(emps);
-    
+array.filter(emp=>emp.salary==45000).forEach(emp=>console.log(emp.id))}
+
+async function writeJSONData(){
+    let array=await readJSONData();
+    //console.log(array);
+    const newemp={
+        "id":789,
+        "name":"seema",
+        "salary":90000
+    }
+    array.push(newemp)
+    const jsondata={
+        "employeerecords":array
+    }
+    await fs.writeFile(file, JSON.stringify(jsondata)).catch(err=>console.log(err))
+    console.log("DONE");
+       
 }
+writeJSONData();
