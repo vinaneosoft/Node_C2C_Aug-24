@@ -1,4 +1,5 @@
 const api= require("./api/EmployeesAPI");
+const {middle1,middle2} =require("./Middlewares/middlewares");
 const {getAllEmployees, getEmployeeById, deleteEmployeeById,addEmployee, updateEmployee}=api;
 const bodyParser=require("body-parser");
 
@@ -9,11 +10,8 @@ app.listen(5000, ()=>console.log("application server started..."))
 
 require("./config/mongodb");
 
-app.use(function(req, res, next){
-    console.log("middleware inbetween");
-    //res.send("response from middleware")// req is not going to next middleware
-    next(); // next middleware // request method
-})
+app.use(middle1)
+app.use(middle2)
 
 app.get("/", function(request, response){
     console.log(request);
