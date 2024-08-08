@@ -9,6 +9,12 @@ app.listen(5000, ()=>console.log("application server started..."))
 
 require("./config/mongodb");
 
+app.use(function(req, res, next){
+    console.log("middleware inbetween");
+    //res.send("response from middleware")// req is not going to next middleware
+    next(); // next middleware // request method
+})
+
 app.get("/", function(request, response){
     console.log(request);
     response.send("WELCOME TO FIRST NODE PROJECT WITH EXPRESS...........");
@@ -29,15 +35,17 @@ app.get("/employees/delete/:empId", async function(request, response){
     response.send(data);
 });
 
-const parser=bodyParser.urlencoded({extended:true})
 
-app.post("/employees/add", parser, async function(request, response){
+
+//const parser=bodyParser.urlencoded({extended:true})
+app.use(bodyParser.urlencoded({extended:true})); /*we are adding middleware with use function */
+app.post("/employees/add", async function(request, response){
     console.log(request.body);
     const data=await addEmployee(request.body);
     response.send(data);
 });
 
-app.post("/employees/update", parser, async function(request, response){
+app.post("/employees/update", async function(request, response){
     console.log(request.body); 
     const {_id, ...employee}=request.body;
     console.log(_id);
