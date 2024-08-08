@@ -8,9 +8,7 @@ async function makeConnection(){
 
     connection.connect().then((success)=>console.log("connected...."))
     .catch((err)=>console.log(err));
+    return connection;
 }
-makeConnection();
+module.exports=makeConnection; 
 
-module.exports=connection;
-
-// mysqldb.js ===> mysqldb
